@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+    <h3> 메인 페이지 </h3>
+
+<!--    되는지 확인-->
+    <div th:text="${#authentication.authorities}"></div>
+    <div th:text="${#authentication.principal}"></div>
+
+<!--    경로지정-->
+    <button type="button" onclick="location.href='/member/login'">로그인</button>
+    <button type="button" onclick="location.href='/member/signup'">회원가입</button>
+    <button type="button" onclick="location.href='/member/logout'">로그아웃</button>
+
+</body>
+</html>
