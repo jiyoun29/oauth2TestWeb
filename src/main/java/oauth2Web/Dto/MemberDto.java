@@ -17,7 +17,7 @@ public class MemberDto {
 
     //dto로 변환되는 toentity
     public MemberEntity toentity(){ //엔티티 호출을 위한 toentity 메소드 정의
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //패스워드 1회 암호화
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //패스워드 1회 암호화(직접 패스워드 검증 불가능)
         return MemberEntity.builder() //생성자 생성 대신 빌더 패턴으로 일괄 생성
                 .mid(this.mid)
                 .mpw(encoder.encode(this.mpw))

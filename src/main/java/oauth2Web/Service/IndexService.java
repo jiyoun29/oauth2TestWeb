@@ -12,6 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -49,4 +51,10 @@ public class IndexService implements UserDetailsService { //config에 사용하�
 
         return loginDto; // 로그인dto로 리턴한다.
     }
+
+
+
+
+
+
 }

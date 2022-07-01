@@ -11,4 +11,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
     //아이디 검색(인덱스서비스2번)
     Optional<MemberEntity> findBymid(String mid);
 
+    //이메일 검색
+    Optional<MemberEntity> findBymemail(String memail);
+
+
 }

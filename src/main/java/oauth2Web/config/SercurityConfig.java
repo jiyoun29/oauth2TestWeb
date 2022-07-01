@@ -1,6 +1,7 @@
 package oauth2Web.config;
 
 import oauth2Web.Service.IndexService;
+import oauth2Web.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +16,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SercurityConfig extends WebSecurityConfigurerAdapter { //상속
 
 
+    @Autowired
+    MemberService memberService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -22,9 +25,11 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter { //상속
 
         //어디를 열어주고, 어디를 막을지 결정해야한다.
         //열어주기(커스텀)         //이미 보안이 걸려있는 상태에서 원하는 대로 커스텀
-        http.authorizeHttpRequests().antMatchers("/").permitAll() //모든 페이지의 모든 권한이 삽입
+        http.authorizeHttpRequests()
+                .antMatchers("/")
+                .permitAll() //모든 페이지의 모든 권한이 삽입
                 .and()
-                .formLogin() //로그인을 내가 원하는 곳에서 하겠다.
+                .formLogin() //로그인을 내가 원하는 곳에서 하겠다. //인증 접근 시작
                 .loginPage("/member/login") //로그인 페이지 생성
                 .loginProcessingUrl("/member/loginController") //로그인 컨트롤러로 이어짐
                 .usernameParameter("mid")   //아이디 받기.
@@ -38,7 +43,11 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter { //상속
                 .and()
                 .csrf() //위조 요청 방지(막아버림)
                 .ignoringAntMatchers("/member/loginController") //로그인 페이지를 열어준다.
-                .ignoringAntMatchers("/member/signupController"); //회원가입 페이지를 열어준다.
+                .ignoringAntMatchers("/member/signupController") //회원가입 페이지를 열어준다.
+                .and()
+                    .oauth2Login()
+                    .userInfoEndpoint() //oauth2Login 처리 이후 설정
+                    .userService(memberService); //멤버 서비스를 유저서비스에 담음?
     }
 
     @Autowired
@@ -48,6 +57,6 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter { //상속
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { //인코더
         auth.userDetailsService(indexService).passwordEncoder(new BCryptPasswordEncoder());
-        //
+        //회원의 정보를 가져오면서 패스워드를 변경한다.
     }
 }

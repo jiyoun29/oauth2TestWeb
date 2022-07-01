@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor // = @RequiredArgsConstructor 둘 중 뭘해도 갠찬
 @Getter //호출해서 사용하기 위한 Getter
-public enum Role {
+public enum Role { //클래스나 배열로 해도 상관 없음
     //enum : 열거형. 서로 연관된 상수들의 집합
 
     MEMBER("ROLE_MEMBER","회원"), //상수 member 정의
